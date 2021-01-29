@@ -7,10 +7,16 @@ const color = document.querySelector('#color')
 const activities = document.querySelector('#activities')
 const total = document.querySelector('#activities-cost')
 let totalCost = 0
+
 const payment = document.querySelector('#payment')
 const creditCard = document.querySelector('#credit-card')
 const payPal = document.querySelector('#paypal')
 const bitCoin = document.querySelector('#bitcoin')
+const email = document.querySelector('#email')
+const ccNum = document.querySelector('#cc-num')
+const zip = document.querySelector('#zip')
+const cvv = document.querySelector('#cvv')
+const form = document.querySelector('form')
 
 name.focus()
 otherJobRole.style.display = 'none'
@@ -87,4 +93,8 @@ payment.addEventListener('change', (e) => {
       bitCoin.style.display = 'none'
       break
   }
+})
+
+form.addEventListener('submit', (e) => {
+
 })
