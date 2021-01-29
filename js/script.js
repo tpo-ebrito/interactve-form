@@ -10,15 +10,14 @@ let totalCost = 0
 const payment = document.querySelector('#payment')
 const creditCard = document.querySelector('#credit-card')
 const payPal = document.querySelector('#paypal')
-const bitCoin = document.querySelector('#bit-coin')
-
+const bitCoin = document.querySelector('#bitcoin')
 
 name.focus()
 otherJobRole.style.display = 'none'
 color.disabled = true
-payment.options[payment.selectedIndex].value = 'credit-card'
-document.querySelector('#paypal').style.display = 'none'
-document.querySelector('#bitcoin').style.display = 'none'
+payPal.style.display = 'none'
+bitCoin.style.display = 'none'
+document.querySelector('option[value="credit-card"]').selected = true
 
 // console.log(jobRole)
 // console.log(design)
@@ -68,4 +67,24 @@ activities.addEventListener('change', (e) => {
     // console.log(totalCost)
   }
   total.innerHTML = `Total: $${totalCost}`
+})
+
+payment.addEventListener('change', (e) => {
+  switch (e.target.value) {
+    case 'credit-card':
+      creditCard.style.display = ''
+      payPal.style.display = 'none'
+      bitCoin.style.display = 'none'
+      break
+    case 'bitcoin':
+      creditCard.style.display = 'none'
+      payPal.style.display = 'none'
+      bitCoin.style.display = ''
+      break
+    case 'paypal':
+      creditCard.style.display = 'none'
+      payPal.style.display = ''
+      bitCoin.style.display = 'none'
+      break
+  }
 })
