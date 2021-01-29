@@ -17,6 +17,7 @@ const ccNum = document.querySelector('#cc-num')
 const zip = document.querySelector('#zip')
 const cvv = document.querySelector('#cvv')
 const form = document.querySelector('form')
+const checkbox = document.querySelectorAll('input[type=checkbox]')
 
 name.focus()
 otherJobRole.style.display = 'none'
@@ -96,5 +97,21 @@ payment.addEventListener('change', (e) => {
 })
 
 form.addEventListener('submit', (e) => {
+  const userName = name.value
+  const userEmail = email.value
+  const userCreditCard = ccNum.value
+  const userZip = zip.value
+  const userCvv = cvv.value
 
+  const regexName = /^[A-Za-z\s]+$/
+  const regexEmail = /^[^@]\w+@[^@]\w+\.(com|net|org)$/
+  const regexCreditCard = /\d{13,16}$/
+  const regexZip = /\d{5}$/
+  const regexCvv = /\d{3}$/
+
+  const isValidName = regexName.test(userName)
+
+  if (!isValidName) {
+    e.preventDefault()
+  }
 })
