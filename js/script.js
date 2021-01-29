@@ -24,7 +24,7 @@ otherJobRole.style.display = 'none'
 color.disabled = true
 payPal.style.display = 'none'
 bitCoin.style.display = 'none'
-document.querySelector('option[value="credit-card"]').selected = true
+document.querySelector('[value="credit-card"]').selected = true
 
 // console.log(jobRole)
 // console.log(design)
@@ -110,6 +110,10 @@ form.addEventListener('submit', (e) => {
   const regexCvv = /\d{3}$/
 
   const isValidName = regexName.test(userName)
+
+  const isChecked = checkbox[0].checked
+
+  console.log(isChecked)
 
   if (!isValidName) {
     e.preventDefault()
