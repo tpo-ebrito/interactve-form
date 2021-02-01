@@ -113,6 +113,21 @@ payment.addEventListener('change', (e) => {
   }
 })
 
+const input = document.querySelector('input[id=cc-num]')
+input.addEventListener('input', updateCreditCard)
+
+function updateCreditCard (e) {
+  ccNum.value = e.target.value
+
+  const regexCC = /^\d{13,16}$/.test(e.target.value)
+
+  if (!regexCC) {
+    ccNum.parentNode.lastElementChild.style.display = 'block'
+  } else if (regexCC) {
+    ccNum.parentNode.lastElementChild.style.display = 'none'
+  }
+}
+
 form.addEventListener('submit', (e) => {
   const userName = name.value
   const userEmail = email.value
