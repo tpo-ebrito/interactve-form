@@ -8,6 +8,7 @@ const activities = document.querySelector('#activities')
 const total = document.querySelector('#activities-cost')
 let totalCost = 0
 const checkbox = document.querySelectorAll('input[type=checkbox]')
+const parentCheckbox = document.querySelector('input[type=checkbox]').parentNode
 
 const payment = document.querySelector('#payment')
 const creditCard = document.querySelector('#credit-card')
@@ -59,14 +60,30 @@ design.addEventListener('change', (e) => {
 })
 
 activities.addEventListener('change', (e) => {
-  const checkbox = e.target
-  const dataCost = +(checkbox.getAttribute('data-cost'))
+  const clicked = e.target
+  const dataCost = +(clicked.getAttribute('data-cost'))
+
   console.log(dataCost)
   console.log(typeof dataCost)
 
-  const checked = checkbox.checked
+  const isChecked = clicked.checked
   console.log(totalCost)
-  if (checked) {
+
+  for (let i = 1; i < checkbox.length; i++) {
+    const otherDateAndTime = checkbox[i].dataset.dayAndTime
+    const isCheckedDayAndTime = clicked.dataset.dayAndTime
+    const otherParent = checkbox[i].parentNode
+
+    if ((isChecked) & (isCheckedDayAndTime === otherDateAndTime) && (clicked.name !== checkbox[i].name)) {
+      checkbox[i].disabled = true
+      otherParent.classList.add('.disabled')
+    } else if (!isChecked) {
+      checkbox[i].disabled = false
+      otherParent.classList.remove('.disabled')
+    }
+  }
+
+  if (isChecked) {
     totalCost += dataCost
     // console.log(totalCost)
   } else {
@@ -108,7 +125,6 @@ form.addEventListener('submit', (e) => {
   const parentCreditCard = ccNum.parentNode
   const parentZip = zip.parentNode
   const parentCvv = cvv.parentNode
-  const parentCheckbox = document.querySelector('input[type=checkbox]').parentNode
 
   const regexName = /^[A-Za-z\s]+$/
   const regexEmail = /^[^@]\w+@[^@]\w+\.(com|net|org)$/
@@ -122,19 +138,18 @@ form.addEventListener('submit', (e) => {
   const isValidZip = regexZip.test(userZip)
   const isValidCvv = regexCvv.test(userCvv)
 
-  console.log(isValidName)
-  console.log(isValidEmail)
-  console.log(isValidCreditCard)
-  console.log(isValidZip)
-  console.log(isValidCvv)
-
-  console.log(checkbox.length)
+  // console.log(isValidName)
+  // console.log(isValidEmail)
+  // console.log(isValidCreditCard)
+  // console.log(isValidZip)
+  // console.log(isValidCvv)
+  // console.log(checkbox.length)
 
   if (!isValidName) {
     e.preventDefault()
     parentName.classList.add('not-valid')
     parentName.classList.remove('valid')
-    parentName.lastElementChild.style.display = ''
+    parentName.lastElementChild.style.display = 'block'
   } else {
     parentName.classList.add('valid')
     parentName.classList.remove('not-valid')
@@ -144,7 +159,7 @@ form.addEventListener('submit', (e) => {
     e.preventDefault()
     parentEmail.classList.add('not-valid')
     parentEmail.classList.remove('valid')
-    parentEmail.lastElementChild.style.display = ''
+    parentEmail.lastElementChild.style.display = 'block'
   } else {
     parentEmail.classList.add('valid')
     parentEmail.classList.remove('not-valid')
@@ -154,7 +169,7 @@ form.addEventListener('submit', (e) => {
     e.preventDefault()
     parentCreditCard.classList.add('not-valid')
     parentCreditCard.classList.remove('valid')
-    parentCreditCard.lastElementChild.style.display = ''
+    parentCreditCard.lastElementChild.style.display = 'block'
   } else {
     parentCreditCard.classList.add('valid')
     parentCreditCard.classList.remove('not-valid')
@@ -164,7 +179,7 @@ form.addEventListener('submit', (e) => {
     e.preventDefault()
     parentZip.classList.add('not-valid')
     parentZip.classList.remove('valid')
-    parentZip.lastElementChild.style.display = ''
+    parentZip.lastElementChild.style.display = 'block'
   } else {
     parentZip.classList.add('valid')
     parentZip.classList.remove('not-valid')
@@ -174,7 +189,7 @@ form.addEventListener('submit', (e) => {
     e.preventDefault()
     parentCvv.classList.add('not-valid')
     parentCvv.classList.remove('valid')
-    parentCvv.lastElementChild.style.display = ''
+    parentCvv.lastElementChild.style.display = 'block'
   } else {
     parentCvv.classList.add('valid')
     parentCvv.classList.remove('not-valid')
@@ -190,11 +205,11 @@ form.addEventListener('submit', (e) => {
     e.preventDefault()
     parentCheckbox.classList.add('not-valid')
     parentCheckbox.classList.remove('valid')
-    parentCheckbox.lastElementChild.style.display = ''
+    parentCheckbox.parentNode.parentNode.lastElementChild.style.display = 'block'
   } else {
     parentCheckbox.classList.add('valid')
     parentCheckbox.classList.remove('not-valid')
-    parentCheckbox.lastElementChild.style.display = 'none'
+    parentCheckbox.parentNode.parentNode.lastElementChild.style.display = 'none'
   }
 
   for (let i = 0; i < checkbox.length; i++) {
