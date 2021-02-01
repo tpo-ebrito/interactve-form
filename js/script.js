@@ -7,6 +7,7 @@ const color = document.querySelector('#color')
 const activities = document.querySelector('#activities')
 const total = document.querySelector('#activities-cost')
 let totalCost = 0
+const checkbox = document.querySelectorAll('input[type=checkbox]')
 
 const payment = document.querySelector('#payment')
 const creditCard = document.querySelector('#credit-card')
@@ -17,7 +18,6 @@ const ccNum = document.querySelector('#cc-num')
 const zip = document.querySelector('#zip')
 const cvv = document.querySelector('#cvv')
 const form = document.querySelector('form')
-const checkbox = document.querySelectorAll('input[type=checkbox]')
 
 name.focus()
 otherJobRole.style.display = 'none'
@@ -103,6 +103,13 @@ form.addEventListener('submit', (e) => {
   const userZip = zip.value
   const userCvv = cvv.value
 
+  const parentName = name.parentNode
+  const parentEmail = email.parentNode
+  const parentCreditCard = ccNum.parentNode
+  const parentZip = zip.parentNode
+  const parentCvv = cvv.parentNode
+  const parentCheckbox = document.querySelector('input[type=checkbox]').parentNode
+
   const regexName = /^[A-Za-z\s]+$/
   const regexEmail = /^[^@]\w+@[^@]\w+\.(com|net|org)$/
   const regexCreditCard = /\d{13,16}$/
@@ -110,12 +117,92 @@ form.addEventListener('submit', (e) => {
   const regexCvv = /\d{3}$/
 
   const isValidName = regexName.test(userName)
+  const isValidEmail = regexEmail.test(userEmail)
+  const isValidCreditCard = regexCreditCard.test(userCreditCard)
+  const isValidZip = regexZip.test(userZip)
+  const isValidCvv = regexCvv.test(userCvv)
 
-  const isChecked = checkbox[0].checked
+  console.log(isValidName)
+  console.log(isValidEmail)
+  console.log(isValidCreditCard)
+  console.log(isValidZip)
+  console.log(isValidCvv)
 
-  console.log(isChecked)
+  console.log(checkbox.length)
 
   if (!isValidName) {
     e.preventDefault()
+    parentName.classList.add('not-valid')
+    parentName.classList.remove('valid')
+    parentName.lastElementChild.style.display = ''
+  } else {
+    parentName.classList.add('valid')
+    parentName.classList.remove('not-valid')
+    parentName.lastElementChild.style.display = 'none'
+  }
+  if (!isValidEmail) {
+    e.preventDefault()
+    parentEmail.classList.add('not-valid')
+    parentEmail.classList.remove('valid')
+    parentEmail.lastElementChild.style.display = ''
+  } else {
+    parentEmail.classList.add('valid')
+    parentEmail.classList.remove('not-valid')
+    parentEmail.lastElementChild.style.display = 'none'
+  }
+  if (!isValidCreditCard) {
+    e.preventDefault()
+    parentCreditCard.classList.add('not-valid')
+    parentCreditCard.classList.remove('valid')
+    parentCreditCard.lastElementChild.style.display = ''
+  } else {
+    parentCreditCard.classList.add('valid')
+    parentCreditCard.classList.remove('not-valid')
+    parentCreditCard.lastElementChild.style.display = 'none'
+  }
+  if (!isValidZip) {
+    e.preventDefault()
+    parentZip.classList.add('not-valid')
+    parentZip.classList.remove('valid')
+    parentZip.lastElementChild.style.display = ''
+  } else {
+    parentZip.classList.add('valid')
+    parentZip.classList.remove('not-valid')
+    parentZip.lastElementChild.style.display = 'none'
+  }
+  if (!isValidCvv) {
+    e.preventDefault()
+    parentCvv.classList.add('not-valid')
+    parentCvv.classList.remove('valid')
+    parentCvv.lastElementChild.style.display = ''
+  } else {
+    parentCvv.classList.add('valid')
+    parentCvv.classList.remove('not-valid')
+    parentCvv.lastElementChild.style.display = 'none'
+  }
+  if (!checkbox[0].checked &&
+     !checkbox[1].checked &&
+     !checkbox[2].checked &&
+     !checkbox[3].checked &&
+     !checkbox[4].checked &&
+     !checkbox[5].checked &&
+     !checkbox[6].checked) {
+    e.preventDefault()
+    parentCheckbox.classList.add('not-valid')
+    parentCheckbox.classList.remove('valid')
+    parentCheckbox.lastElementChild.style.display = ''
+  } else {
+    parentCheckbox.classList.add('valid')
+    parentCheckbox.classList.remove('not-valid')
+    parentCheckbox.lastElementChild.style.display = 'none'
+  }
+
+  for (let i = 0; i < checkbox.length; i++) {
+    parentCheckbox.addEventListener('focus', (e) => {
+      parentCheckbox.classList.add('focus')
+    })
+    parentCheckbox.addEventListener('blur', (e) => {
+      parentCheckbox.parentNode.classList.remove('focus')
+    })
   }
 })
