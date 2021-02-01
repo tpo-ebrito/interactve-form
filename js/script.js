@@ -112,9 +112,9 @@ form.addEventListener('submit', (e) => {
 
   const regexName = /^[A-Za-z\s]+$/
   const regexEmail = /^[^@]\w+@[^@]\w+\.(com|net|org)$/
-  const regexCreditCard = /\d{13,16}$/
-  const regexZip = /\d{5}$/
-  const regexCvv = /\d{3}$/
+  const regexCreditCard = /^\d{13,16}$/
+  const regexZip = /^\d{5}$/
+  const regexCvv = /^\d{3}$/
 
   const isValidName = regexName.test(userName)
   const isValidEmail = regexEmail.test(userEmail)
